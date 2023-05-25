@@ -35,7 +35,19 @@ def search_movies():
     try:
         keyword = ""
         url = api_url + '/titles/search/keyword/'+keyword
-        print(url)
+        response = requests.get(url, headers=headers)
+        data = response.json()
+        return jsonify(data) 
+    except requests.exceptions.RequestException as e:
+        return jsonify({'error': str(e)}) 
+
+
+
+@app.route('/api/genres')
+def get_genres():
+    try:
+        keyword = ""
+        url = api_url + '/titles/utils/genres'
         response = requests.get(url, headers=headers)
         data = response.json()
         return jsonify(data) 
